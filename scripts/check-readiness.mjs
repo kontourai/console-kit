@@ -8,7 +8,7 @@ const workspace = path.resolve(root, "..");
 const pkg = readJson(path.join(root, "package.json"));
 
 assert.equal(pkg.name, "@kontourai/console-kit", "Package name must stay @kontourai/console-kit.");
-assertNoLegacyScope(JSON.stringify(pkg), "console-ui/package.json");
+assertNoLegacyScope(JSON.stringify(pkg), "console-kit/package.json");
 assert.equal(pkg.private, false, "Package should remain publishable when release policy changes.");
 assertIncludes(pkg.files, "tokens/", "Package files must include tokens.");
 assertIncludes(pkg.files, "react/styles.css", "Package files must include React styles.");
@@ -67,21 +67,25 @@ console.log("Console Kit release readiness check passed.");
 
 function assertAdopterContracts() {
   const consolePkg = readJson(path.join(workspace, "kontour-console/console-ui/package.json"));
-  assert.equal(consolePkg.dependencies?.["@kontourai/console-kit"], "file:../../console-ui");
+  assert.equal(consolePkg.dependencies?.["@kontourai/console-kit"], "file:../../console-kit");
   assertContains(read(path.join(workspace, "kontour-console/console-ui/index.html")), "class=\"theme-console\"");
   assertContains(read(path.join(workspace, "kontour-console/console-ui/src/main.tsx")), "@kontourai/console-kit/react/styles.css");
 
   const flowPkg = readJson(path.join(workspace, "flow/package.json"));
-  assert.equal(flowPkg.devDependencies?.["@kontourai/console-kit"], "file:../console-ui");
+  assert.equal(flowPkg.devDependencies?.["@kontourai/console-kit"], "file:../console-kit");
   assertContains(JSON.stringify(flowPkg.scripts), "check:console-kit-assets");
   assertContains(read(path.join(workspace, "flow/src/console-ui/index.html")), "class=\"theme-flow\" data-theme=\"light\"");
   assertFile(path.join(workspace, "flow/scripts/sync-console-kit-assets.mjs"), "Flow must keep a Console Kit asset sync script.");
 
   const surveyPkg = readJson(path.join(workspace, "survey/package.json"));
   assertContains(JSON.stringify(surveyPkg.scripts), "check:review-workbench", "Survey must keep its review workbench validator.");
-  assertContains(read(path.join(workspace, "survey/examples/review-workbench/index.html")), "review-workbench.css", "Survey review workbench must keep its local stylesheet until token adoption is restored.");
-  assertContains(read(path.join(root, "plans/04-release-readiness.md")), "Survey token adoption is a known release blocker", "Step 4 plan must document the Survey token adoption blocker.");
-  assertContains(read(path.join(root, "docs/release-readiness.md")), "Survey token adoption is a known release blocker", "Release readiness docs must document the Survey token adoption blocker.");
+  assert.equal(surveyPkg.devDependencies?.["@kontourai/console-kit"], "file:../console-kit");
+  assertContains(JSON.stringify(surveyPkg.scripts), "sync:review-workbench-assets", "Survey package scripts must include sync:review-workbench-assets.");
+  assertContains(JSON.stringify(surveyPkg.scripts), "check:review-workbench-assets", "Survey package scripts must include check:review-workbench-assets.");
+  assertContains(read(path.join(workspace, "survey/examples/review-workbench/index.html")), "class=\"theme-survey\"", "Survey review workbench must apply theme-survey.");
+  assertContains(read(path.join(workspace, "survey/examples/review-workbench/index.html")), "./vendor/console-kit/tokens/index.css", "Survey review workbench must load vendored Console Kit tokens.");
+  assertFile(path.join(workspace, "survey/scripts/sync-review-workbench-assets.cjs"), "Survey must keep a review workbench token sync script.");
+  assertFile(path.join(workspace, "survey/examples/review-workbench/vendor/console-kit/tokens/index.css"), "Survey must keep vendored token assets.");
 
   const surfacePkg = readJson(path.join(workspace, "surface/package.json"));
   assertContains(JSON.stringify(surfacePkg.scripts), "check:console-kit-assets");

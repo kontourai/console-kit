@@ -25,7 +25,7 @@ The web components are light-DOM wrappers that emit the same className contracts
 
 ## Flow adoption
 
-Location: `flow/src/console-ui/`
+Location: `flow/src/console-kit/`
 
 Flow stays light: `<html class="theme-flow" data-theme="light">`. Local variables are now aliases over `--k-*` tokens:
 
@@ -37,11 +37,11 @@ Flow stays light: `<html class="theme-flow" data-theme="light">`. Local variable
 
 Consumption method:
 
-- `src/console-ui/console-kit-tokens -> ../../../console-ui/tokens`
-- `src/console-ui/console-kit-react-styles.css -> ../../../console-ui/react/styles.css`
+- `src/console-kit/console-kit-tokens -> ../../../console-kit/tokens`
+- `src/console-kit/console-kit-react-styles.css -> ../../../console-kit/react/styles.css`
 - `scripts/copy-console-ui.mjs` dereferences those CSS assets into `dist/console-ui` so the built Flow console server loads the same token contract.
 
-No `src/console-ui/app.ts` domain logic was changed.
+No `src/console-kit/app.ts` domain logic was changed.
 
 ## Survey adoption
 
@@ -49,7 +49,7 @@ Location: `survey/examples/review-workbench/`
 
 Survey now loads package tokens via:
 
-- `examples/review-workbench/console-kit-tokens -> ../../../console-ui/tokens`
+- `examples/review-workbench/console-kit-tokens -> ../../../console-kit/tokens`
 - `<link rel="stylesheet" href="./console-kit-tokens/index.css">`
 - `<html class="theme-survey">`
 

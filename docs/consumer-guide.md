@@ -30,7 +30,7 @@ Install locally while unpublished:
 ```json
 {
   "dependencies": {
-    "@kontourai/console-kit": "file:../../console-ui"
+    "@kontourai/console-kit": "file:../../console-kit"
   }
 }
 ```

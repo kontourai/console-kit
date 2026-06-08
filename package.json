@@ -1,6 +1,6 @@
 {
   "name": "@kontourai/console-kit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Framework-agnostic console tokens and shared UI primitives for Kontour console products.",
   "type": "module",
   "private": false,
@@ -43,5 +43,12 @@
     "react/styles.css",
     "tokens/",
     "README.md"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kontourai/console-kit.git"
+  }
 }

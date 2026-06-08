@@ -15,7 +15,7 @@ folder and the survey repo's CSS.
 
 ## Deliverables
 
-1. **Package skeleton** at `/Users/brian/dev/github/kontourai/console-ui/`:
+1. **Package skeleton** at `/Users/brian/dev/github/kontourai/console-kit/`:
    ```
    console-ui/
      package.json          # name "@kontourai/console-kit", version 0.0.0, private:false,

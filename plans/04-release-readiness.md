@@ -8,7 +8,7 @@ The goal is to keep the token, React, and custom-element contracts stable across
 
 ## Scope
 
-- Add release/readiness checks to `console-ui`.
+- Add release/readiness checks to `console-kit`.
 - Document package consumption for tokens, React, custom elements, static HTML, and vendored assets.
 - Add one canonical gallery that renders React and custom-element parity together.
 - Keep adopter contract checks visible for:
@@ -17,9 +17,9 @@ The goal is to keep the token, React, and custom-element contracts stable across
   - `survey`
   - `surface`
 
-## Known Release Blocker
+## Survey Remediation
 
-Survey token adoption is a known release blocker. The current Survey worktree keeps its review workbench validator and local stylesheet, but the vendored Console Kit token sync path is not stable in the filesystem during this pass. Do not declare a full cross-adopter release until Survey has a committed, drift-checked token consumption path.
+Survey now has a committed, drift-checked Console Kit token consumption path for `examples/review-workbench`. It loads vendored tokens before the local workbench stylesheet, applies `theme-survey`, and keeps the local CSS mapped onto `--k-*` tokens without changing Survey TypeScript.
 
 ## Out of Scope
 
@@ -43,19 +43,18 @@ Before registry publishing, decide:
 
 ## Acceptance Criteria
 
-- `console-ui/package.json` has `check:readiness`, `check:pack`, and `verify`.
-- `npm run verify` passes from `console-ui`.
+- `console-kit/package.json` has `check:readiness`, `check:pack`, and `verify`.
+- `npm run verify` passes from `console-kit`.
 - `npm pack --dry-run` includes package docs, tokens, React styles, elements, and dist output.
 - `docs/consumer-guide.md` documents React, custom elements, static HTML, theme classes, and vendored asset sync.
 - `docs/release-readiness.md` documents cross-adopter verification commands.
 - `docs/gallery.html` renders shared tokens, React styles, custom elements, React `Badge`, all product theme classes, and semantic tone states.
 - The readiness script confirms no legacy package-scope spelling appears in the checked contracts.
-- The readiness script confirms adopter package/theme/sync markers for Kontour Console, Flow, and Surface.
-- The readiness script confirms Survey still has its review workbench validator and that this plan documents the Survey token adoption blocker.
+- The readiness script confirms adopter package/theme/sync markers for Kontour Console, Flow, Survey, and Surface.
 
 ## Verification Commands
 
-From `console-ui`:
+From `console-kit`:
 
 ```sh
 npm install
@@ -84,11 +83,10 @@ npm run test
 ```sh
 cd ../survey
 npm install
+npm run check:review-workbench-assets
 npm run check:review-workbench
 npm run verify
 ```
-
-Survey token adoption is a known release blocker; `npm run verify` does not yet prove Console Kit token consumption there.
 
 ```sh
 cd ../surface
@@ -100,6 +98,6 @@ npm run verify
 
 Browser evidence:
 
-- Serve `console-ui` over HTTP after `npm run build`.
+- Serve `console-kit` over HTTP after `npm run build`.
 - Capture `docs/gallery.html` at 1440x1200.
 - Confirm light/dark or theme switching remains coherent for the gallery and representative adopter screens.

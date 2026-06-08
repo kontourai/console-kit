@@ -4,7 +4,7 @@ This package is ready for release review when the package checks, pack preview, 
 
 ## Package Checks
 
-From `console-ui`:
+From `console-kit`:
 
 ```sh
 npm install
@@ -46,11 +46,12 @@ Survey:
 ```sh
 cd ../survey
 npm install
+npm run check:review-workbench-assets
 npm run check:review-workbench
 npm run verify
 ```
 
-Survey token adoption is a known release blocker. Its current checks prove the workbench still builds and preserves validator-sensitive markup/CSS, but they do not prove package-token consumption.
+Survey consumes vendored Console Kit tokens through `sync:review-workbench-assets`; `check:review-workbench-assets` verifies the copied token files have not drifted.
 
 Surface:
 
@@ -64,7 +65,7 @@ npm run verify
 
 ## Browser Evidence
 
-After `console-ui` builds, serve the package root over HTTP and capture:
+After `console-kit` builds, serve the package root over HTTP and capture:
 
 - `docs/gallery.html`
 - Kontour Console main app

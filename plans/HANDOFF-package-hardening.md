@@ -23,11 +23,11 @@ Location: `console-ui/`
 
 Location: `flow/`
 
-- Added `@kontourai/console-kit: file:../console-ui` as a dev dependency.
+- Added `@kontourai/console-kit: file:../console-kit` as a dev dependency.
 - Added `scripts/sync-console-kit-assets.mjs`.
-- `npm run build` now syncs package CSS assets into `src/console-ui/vendor/console-kit/` before compiling and copies that vendor folder into `dist/console-ui`.
-- `scripts/copy-console-ui.mjs` removes stale `dist/console-ui/vendor` before copying.
-- `src/console-ui/index.html` loads:
+- `npm run build` now syncs package CSS assets into `src/console-kit/vendor/console-kit/` before compiling and copies that vendor folder into `dist/console-ui`.
+- `scripts/copy-console-ui.mjs` removes stale `dist/console-kit/vendor` before copying.
+- `src/console-kit/index.html` loads:
   - `./vendor/console-kit/tokens/index.css`
   - `./vendor/console-kit/react/styles.css`
 - Added `npm run check:console-kit-assets` to fail on vendor drift or symlinked assets.
@@ -37,7 +37,7 @@ Location: `flow/`
 
 Location: `survey/`
 
-- Added `@kontourai/console-kit: file:../console-ui` as a dev dependency.
+- Added `@kontourai/console-kit: file:../console-kit` as a dev dependency.
 - Added `scripts/sync-review-workbench-assets.cjs`.
 - Review workbench loads `./vendor/console-kit/tokens/index.css` and keeps `class="theme-survey"`.
 - Added `npm run check:review-workbench-assets` to fail on vendor drift or symlinked assets.

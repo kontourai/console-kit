@@ -69,7 +69,7 @@ For static HTML consoles served without a bundler, add a local package dependenc
 ```json
 {
   "devDependencies": {
-    "@kontourai/console-kit": "file:../console-ui"
+    "@kontourai/console-kit": "file:../console-kit"
   }
 }
 ```

@@ -7,7 +7,7 @@ Surface uses the package name `@kontourai/console-kit` but does not add it to `p
 The docs build runs `scripts/sync-console-kit-assets.mjs` before generating pages. The script resolves token assets in this order:
 
 1. installed `node_modules/@kontourai/console-kit`
-2. sibling workspace checkout `../console-ui`
+2. sibling workspace checkout `../console-kit`
 
 Both source paths validate that `package.json` has `name: "@kontourai/console-kit"` before copying. The script copies the resolved package token assets into the generated docs site at:
 
@@ -43,7 +43,7 @@ Surface-specific identity colors are authored as `--k-*` overrides in `docs-site
   - Updates `docs:build` and `verify` to sync and validate vendored token assets.
 - `surface/scripts/sync-console-kit-assets.mjs`
   - Copies token assets into `docs-site/vendor/console-kit/tokens/`.
-  - Resolves an installed `@kontourai/console-kit` first, then the sibling `../console-ui` package.
+  - Resolves an installed `@kontourai/console-kit` first, then the sibling `../console-kit` package.
   - Validates the package name before copying.
   - Supports `--check` drift detection.
   - Rejects symlinked vendored assets.
@@ -96,12 +96,12 @@ Playwright checks at 1440x1200 confirmed:
 
 Screenshots:
 
-- `/Users/brian/dev/github/kontourai/console-ui/plans/surface-docs-site-token-adoption-light.png`
-- `/Users/brian/dev/github/kontourai/console-ui/plans/surface-docs-site-token-adoption-dark.png`
+- `/Users/brian/dev/github/kontourai/console-kit/plans/surface-docs-site-token-adoption-light.png`
+- `/Users/brian/dev/github/kontourai/console-kit/plans/surface-docs-site-token-adoption-dark.png`
 
 ## Parity gaps / assumptions
 
 - Surface docs intentionally do not adopt React or custom-element primitives in this pass; the scope is token/theme adoption for the generated static docs site.
 - `docs-site/` is ignored/generated in Surface, so the committed source of truth is the generator plus the sync script.
 - Surface keeps its own visual identity rather than adopting `theme-console`, `theme-flow`, or survey styling.
-- Surface standalone installs do not require the sibling Console Kit checkout; docs token sync requires either an installed package or `../console-ui`.
+- Surface standalone installs do not require the sibling Console Kit checkout; docs token sync requires either an installed package or `../console-kit`.

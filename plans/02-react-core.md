@@ -27,7 +27,7 @@ consumer and the source of the seed components.
          import { Panel, Badge } from "@kontourai/console-kit/react"
      react/styles.css        # component styles, written entirely against --k-* tokens
    ```
-   - **Seed from** `kontour-console/console-ui/src/components/*.tsx` (they are tiny and
+   - **Seed from** `kontour-console/console-kit/src/components/*.tsx` (they are tiny and
      purely presentational). Generalize props where they are coupled to kontour-specific
      types (e.g. `StatusBadge` currently imports `ConnectionStatus` from the app's
      `types.ts` — replace with a local/portable union or a generic `status: string`).
@@ -47,8 +47,8 @@ consumer and the source of the seed components.
      consumable ESM + `.d.ts`. Mirror kontour-console's toolchain (TS 6, React 19, Vite 7).
 
 2. **kontour-console adopts the package:**
-   - Add dependency `"@kontourai/console-kit": "file:../../console-ui"` to
-     `kontour-console/console-ui/package.json` (same `file:` pattern it already uses for
+   - Add dependency `"@kontourai/console-kit": "file:../../console-kit"` to
+     `kontour-console/console-kit/package.json` (same `file:` pattern it already uses for
      `@kontour/console-core`).
    - Replace local `src/components/*` usage with imports from `@kontourai/console-kit/react`.
      Delete (or thin to re-exports) the local component files that are now provided by the
@@ -82,7 +82,7 @@ consumer and the source of the seed components.
 
 ## Constraints / DO-NOT-BREAK
 
-- kontour-console scripts (from `kontour-console/console-ui/package.json`):
+- kontour-console scripts (from `kontour-console/console-kit/package.json`):
   `build` = `tsc -b && vite build`, `typecheck` = `tsc -b --noEmit`,
   `test` = `node --import tsx --test test/*.ts`, `dev`/`preview` = vite.
   All of `typecheck`, `test`, `build` must pass after adoption.
@@ -92,7 +92,7 @@ consumer and the source of the seed components.
 
 ## Verification (must pass before handoff)
 
-From `kontour-console/console-ui/`:
+From `kontour-console/console-kit/`:
 ```bash
 npm install           # resolves the file: dependency
 npm run typecheck
