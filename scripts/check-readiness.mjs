@@ -67,19 +67,19 @@ console.log("Console Kit release readiness check passed.");
 
 function assertAdopterContracts() {
   const consolePkg = readJson(path.join(workspace, "kontour-console/console-ui/package.json"));
-  assert.equal(consolePkg.dependencies?.["@kontourai/console-kit"], "file:../../console-kit");
+  assert.equal(consolePkg.dependencies?.["@kontourai/console-kit"], "^0.1.0");
   assertContains(read(path.join(workspace, "kontour-console/console-ui/index.html")), "class=\"theme-console\"");
   assertContains(read(path.join(workspace, "kontour-console/console-ui/src/main.tsx")), "@kontourai/console-kit/react/styles.css");
 
   const flowPkg = readJson(path.join(workspace, "flow/package.json"));
-  assert.equal(flowPkg.devDependencies?.["@kontourai/console-kit"], "file:../console-kit");
+  assert.equal(flowPkg.devDependencies?.["@kontourai/console-kit"], "^0.1.0");
   assertContains(JSON.stringify(flowPkg.scripts), "check:console-kit-assets");
   assertContains(read(path.join(workspace, "flow/src/console-ui/index.html")), "class=\"theme-flow\" data-theme=\"light\"");
   assertFile(path.join(workspace, "flow/scripts/sync-console-kit-assets.mjs"), "Flow must keep a Console Kit asset sync script.");
 
   const surveyPkg = readJson(path.join(workspace, "survey/package.json"));
   assertContains(JSON.stringify(surveyPkg.scripts), "check:review-workbench", "Survey must keep its review workbench validator.");
-  assert.equal(surveyPkg.devDependencies?.["@kontourai/console-kit"], "file:../console-kit");
+  assert.equal(surveyPkg.devDependencies?.["@kontourai/console-kit"], "^0.1.0");
   assertContains(JSON.stringify(surveyPkg.scripts), "sync:review-workbench-assets", "Survey package scripts must include sync:review-workbench-assets.");
   assertContains(JSON.stringify(surveyPkg.scripts), "check:review-workbench-assets", "Survey package scripts must include check:review-workbench-assets.");
   assertContains(read(path.join(workspace, "survey/examples/review-workbench/index.html")), "class=\"theme-survey\"", "Survey review workbench must apply theme-survey.");
