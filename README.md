@@ -1,20 +1,75 @@
-# @kontourai/console-kit
+# Kontour Console Kit
 
-Kontour Console Kit is the shared presentation layer for Kontour console products. It ships framework-agnostic tokens plus class-driven React primitives that read the `--k-*` token contract.
+**The shared design-token and component layer for Kontour consoles.**
 
-## Layers
+`@kontourai/console-kit`
 
-- `@kontourai/console-kit/tokens` exposes CSS custom properties for any renderer.
-- `@kontourai/console-kit/react` exposes class-driven React primitives.
-- `@kontourai/console-kit/elements` exposes light-DOM web-component wrappers for vanilla products.
+[![npm version](https://img.shields.io/npm/v/%40kontourai%2Fconsole-kit)](https://www.npmjs.com/package/@kontourai/console-kit)
+[![CI](https://github.com/kontourai/console-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/kontourai/console-kit/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
+Use Console Kit when you are building a Kontour console product (Surface Console, Flow Console, Survey Review Workbench, or a custom operator UI) and need to stay visually consistent with the `--k-*` token contract without copying CSS by hand. If you are building a general-purpose application with its own design system, you do not need this package.
+
+Console Kit ships three layers:
+
+- `@kontourai/console-kit/tokens` — CSS custom properties for any renderer, no framework required.
+- `@kontourai/console-kit/react` — class-driven React primitives (`Badge`, `Button`, `Panel`, `StatusBadge`, `Topbar`) that read the token contract.
+- `@kontourai/console-kit/elements` — light-DOM web-component wrappers for vanilla products.
 
 Package docs:
 
 - `docs/consumer-guide.md` covers React, custom elements, static HTML, theme classes, and vendored asset sync.
 - `docs/release-readiness.md` records the release and adopter verification matrix.
-- `docs/gallery.html` is the canonical static gallery for React/custom-element parity.
+- [`docs/gallery.html`](docs/gallery.html) is the canonical static gallery for React/custom-element parity.
 
-## Consuming Tokens
+## Themes
+
+Apply one product theme class on a stable root element to set the product identity:
+
+```html
+<main class="theme-survey">...</main>
+```
+
+| Theme class | Product | Brand accent | Design intent |
+| --- | --- | --- | --- |
+| `theme-survey` | Survey / Review Workbench | `#5ce0c6` teal | Evidence-forward; minimal overrides on the default dark shell |
+| `theme-console` | Kontour Console | `#c9ff4a` lime-green | Dense operator plane; condensed font, zero radius, high-contrast palette |
+| `theme-flow` | Flow | `#2f88a6` blue | Process-transparency; cool accent on the default dark shell |
+| `theme-surface` | Surface | `#14a37a` green | Trust-state inspection; earthy-green accent on the default dark shell |
+
+All themes support `[data-theme="light"]` for light-mode overrides. See [`docs/gallery.html`](docs/gallery.html) for rendered examples of each theme in both modes.
+
+## React
+
+Import primitive styles once at your app root:
+
+```ts
+import "@kontourai/console-kit/react/styles.css";
+```
+
+Then use the primitives:
+
+```ts
+import { Badge, Button, Panel, StatusBadge, Topbar } from "@kontourai/console-kit/react";
+```
+
+## Custom elements
+
+Load the element module for vanilla or web-component-based products:
+
+```html
+<script type="module" src="./vendor/console-kit/dist/elements/elements/src/index.js"></script>
+```
+
+Then render:
+
+```html
+<k-badge value="verified"></k-badge>
+<k-status-badge status="connected"></k-status-badge>
+<k-button label="Accept" variant="positive"></k-button>
+```
+
+## Token import
 
 Import the full token layer:
 
@@ -30,41 +85,7 @@ Or import individual files:
 @import "@kontourai/console-kit/themes.css";
 ```
 
-Apply one product theme class on a stable root element:
-
-```html
-<main class="theme-survey">...</main>
-```
-
-Available themes are `theme-console`, `theme-flow`, `theme-survey`, and `theme-surface`.
-
-React consumers should import the primitive styles once:
-
-```ts
-import "@kontourai/console-kit/react/styles.css";
-```
-
-React primitives are exported from:
-
-```ts
-import { Badge, Button, Panel, StatusBadge, Topbar } from "@kontourai/console-kit/react";
-```
-
-Vanilla consumers should load the element module:
-
-```html
-<script type="module" src="./vendor/console-kit/dist/elements/elements/src/index.js"></script>
-```
-
-Then render the light-DOM custom elements:
-
-```html
-<k-badge value="verified"></k-badge>
-<k-status-badge status="connected"></k-status-badge>
-<k-button label="Accept" variant="positive"></k-button>
-```
-
-For static HTML consoles served without a bundler, add a local package dependency and copy the package CSS assets into the product's served asset tree during build or setup:
+For static HTML consoles served without a bundler, add a local package dependency and copy the CSS assets into the product's asset tree during build or setup:
 
 ```json
 {
